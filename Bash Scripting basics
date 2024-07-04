@@ -1,0 +1,108 @@
+Bash Scripting:
+-------------------
+-> vim myfirst_shell.sh
+
+   #!/bin/bash
+
+   echo Hello World
+
+-> ls -l
+-rw-rw-r-- 1 vagrant vagrant 32 Jul  3 20:04 myfirst_shell.sh
+
+-> chmod u+x myfirst_shell.sh
+
+Variables:
+----------------
+-> vim my_var.sh
+   #!/bin/bash
+   first_name=Vardhan
+   last_name=K
+   
+   echo Hello $first_name $last_name
+   
+   ./my_var.sh
+
+Variables - interactive_shell:
+---------------------------
+-> vim interactive_shell.sh
+   #!/bin/bash
+   
+   echo What is your name?
+   read first_name
+   echo What is your last name?
+   read last_name
+   
+   echo Hello $first_name $last_name
+   
+   ./interactive_shell.sh
+   
+-> echo $? = 0 ; no errors
+
+-> echo $? /= 0 (not equal to); output has errors.
+
+if/elif/else:
+--------------------
+-> vim ifelifelse.sh
+   #!/bin/bash
+   if [ ${1,,} = vardhan ]; then
+   echo "This is the correct username"
+   elif [ ${1,,} = help ]; then
+   echo "Enter the correct username"
+   else 
+   echo "Don't know who you are"
+   fi
+   
+Case statements:
+------------------
+case ${1,,} in 
+        vardhan | admin)
+		        echo "Correct username"
+                ;;
+        help)
+                echo "Just enter username"
+                ;;
+        *) 
+                echo "Enter valid username"
+esac
+
+Functions
+--------------
+vim firstfun.sh		
+#!/bin/bash
+showuptime(){
+      up=$(uptime -p | cut -c4-)
+	  since=$(uptime -s)
+	  
+	  cat << EOF
+	  -----------------
+	  This machine has been up for ${up}
+	  It has been running since ${since}
+	 -------------------
+
+     EOF
+}
+showuptime	 
+
+vim functionposargu.sh
+#!/bin/bash
+
+showname(){
+		echo hello $1
+		if [ ${1,,} = Vardhan ]; then
+		return 0
+		else
+		return 1
+		fi
+
+}
+showname $1
+if [$? = 1]; then
+	echo "unknown person calling function"
+fi
+
+
+
+	 
+	  
+   
+
